@@ -1,5 +1,6 @@
 from datetime import timedelta
 from fetcher import fetch_weather
+from preprocessing import preprocess
 import pandas as pd
 
 
@@ -17,12 +18,9 @@ def update_weather_data():
 
     new_df = fetch_weather(new_date, new_date)
 
+    new_df = preprocess(new_df)
+
     updated_df = pd.concat([old_df, new_df], ignore_index=True)
 
-    updated_df.drop_duplicates(subset="date", inplace=True)
-
-    updated_df.sort_values("date", inplace=True)
-
-    updated_df.to_csv("data/weather_hourly.csv", index=False)
-
+    
     print(f"Added weather data for {new_date}")

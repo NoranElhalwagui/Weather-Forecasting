@@ -3,6 +3,7 @@ import openmeteo_requests
 import pandas as pd
 import requests_cache
 from retry_requests import retry
+from preprocessing import preprocess
 
 
 def fetch_weather(start_date, end_date):
@@ -70,6 +71,9 @@ def fetch_weather(start_date, end_date):
     return hourly_dataframe
 
 if __name__ == "__main__":
-    df = fetch_weather()
+    start_date = "2022-01-31"
+    end_date = "2026-06-28"
+    df = fetch_weather(start_date,end_date)
+    df=preprocess(df)
     df.to_csv("data/weather_history.csv", index=False)
     print("\nHourly data\n", df)
