@@ -1,14 +1,17 @@
-from datetime import timedelta
+from datetime import date, timedelta
 from fetcher import fetch_weather
 from preprocessing import preprocess
 import pandas as pd
 
+TRAIN_FILE = "models/last_training.txt"
 
 def update_weather_data():
     # Read existing data
-    old_df = pd.read_csv("data/weather_hourly.csv")
+    old_df = pd.read_csv("data/weather_history.csv")
     old_df["date"] = pd.to_datetime(old_df["date"])
 
+    with open(TRAIN_FILE, "w") as f:
+        f.write(date.today().isoformat())
     # Find the last recorded day
     last_day = old_df["date"].max().date()
 
