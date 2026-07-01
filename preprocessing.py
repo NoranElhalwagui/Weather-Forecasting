@@ -4,7 +4,7 @@ def preprocess(df):
 
     df["date"] = pd.to_datetime(df["date"])
 
-    df.drop(columns=["precipitation_probability"], inplace=True)
+    #df.drop(columns=["precipitation_probability"], inplace=True)
 
     df.drop_duplicates(subset="date", inplace=True)
 
